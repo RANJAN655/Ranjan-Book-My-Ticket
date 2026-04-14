@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Auth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center h-screen text-white"
+  >
+    <div
+      class="w-full max-w-md bg-slate-800/70 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-slate-700"
+    >
+      <!-- TITLE -->
+      <h2
+        class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"
+      >
+        Welcome Back
+      </h2>
+
+      <!-- TOGGLE -->
+      <div class="flex bg-slate-700 rounded-xl mb-6 overflow-hidden">
+        <button
+          onclick="showLogin()"
+          id="loginBtn"
+          class="w-1/2 py-2 font-semibold bg-cyan-500"
+        >
+          Login
+        </button>
+        <button
+          onclick="showRegister()"
+          id="registerBtn"
+          class="w-1/2 py-2 font-semibold"
+        >
+          Register
+        </button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginBox">
+        <input
+          id="loginEmail"
+          placeholder="Email"
+          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        />
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Password"
+          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        />
+
+        <button
+          onclick="login()"
+          class="w-full bg-cyan-500 hover:bg-cyan-600 py-2 rounded-lg font-semibold transition"
+        >
+          Login
+        </button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="registerBox" class="hidden">
+        <input
+          id="name"
+          placeholder="Name"
+          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        />
+
+        <input
+          id="email"
+          placeholder="Email"
+          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        />
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        />
+        <select
+          id="role"
+          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        >
+          <option value="customer" selected>customer</option>
+          <option value="student">student</option>
+          <option value="seller">seller</option>
+        </select>
+
+        <button
+          onclick="register()"
+          class="w-full bg-emerald-500 hover:bg-emerald-600 py-2 rounded-lg font-semibold transition"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function showLogin() {
+        document.getElementById("loginBox").classList.remove("hidden");
+        document.getElementById("registerBox").classList.add("hidden");
+        
+        document.getElementById("loginBtn").classList.add("bg-cyan-500");
+        document.getElementById("registerBtn").classList.remove("bg-emerald-500");
+        
+      }
+
+      function showRegister() {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("registerBox").classList.remove("hidden");  
+        document.getElementById("registerBtn").classList.add("bg-emerald-500");
+        document.getElementById("loginBtn").classList.remove("bg-cyan-500");
+      }
+
+      // LOGIN
+      async function login() {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            email: loginEmail.value,
+            password: loginPassword.value,
+          }),
+        });
+
+        if (res.ok) {
+          window.location.href = "seats.html";
+        } else {
+          alert("Login failed");
+        }
+      }
+
+      // REGISTER
+      async function register() {
+        const nameVal = document.getElementById("name").value.trim();
+        const emailVal = document.getElementById("email").value.trim();
+        const passwordVal = document.getElementById("password").value.trim();
+        const roleVal = document.getElementById("role").value;
+
+        // ✅ validation
+        if (!nameVal || !emailVal || !passwordVal) {
+          alert("All fields are required");
+          return;
+        }
+
+        const res = await fetch("/api/auth/registerr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            password: passwordVal,
+            role: roleVal,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.error || "Register failed");
+          return;
+        }
+
+        alert("Registered successfully! Check your email.");
+        showLogin();
+      }
+    </script>
+  </body>
+</html>

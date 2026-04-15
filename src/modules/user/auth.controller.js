@@ -36,7 +36,7 @@ const register = async (req, res) => {
 
 const logout = async (req, res) => {
   await service.logOut(req.user.id);
-  res.ClearCookie("refreshtoken");
+  res.clearCookie("refreshtoken");
   ApiResponse.ok(res, "Logout Success");
 };
 const getMe = async (req, res) => {

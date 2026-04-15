@@ -105,6 +105,7 @@ const referce = async ({ token }) => {
 };
 
 const logOut = async (userId) => {
+  
   await User.findByIdAndUpdate(userId, { refreshtoken: null });
 };
 

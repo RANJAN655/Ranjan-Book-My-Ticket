@@ -4,100 +4,94 @@
     <title>Auth</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
+  <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
 
-  <body
-    class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center h-screen text-white"
-  >
-    <div
-      class="w-full max-w-md bg-slate-800/70 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-slate-700"
-    >
-      <!-- TITLE -->
-      <h2
-        class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"
+  <div class="min-h-screen grid md:grid-cols-2 items-center px-10">
+
+    <!-- LEFT SIDE (YOUR TEXT) -->
+    <div class=" md:block">
+      <h1 class="text-4xl font-bold mb-4 leading-tight">
+        Book Your Movie Tickets <br />
+        <span class="text-cyan-400">Anytime, Anywhere 🎬</span>
+      </h1>
+
+      <p class="text-slate-300 text-lg mb-6">
+        Your all-in-one movie ticket booking platform.  
+        Choose seats, explore shows, and enjoy seamless booking experience.
+      </p>
+
+      <ul class="text-slate-400 space-y-2">
+        <li>✔ Real-time seat selection</li>
+        <li>✔ Secure JWT authentication</li>
+        <li>✔ Fast booking system</li>
+        <li>✔ Built with MERN + Docker</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE (YOUR FORM — EXACT SAME) -->
+    <div class="flex justify-center">
+      <div
+        class="w-full max-w-md bg-slate-800/70 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-slate-700"
       >
-        Welcome Back
-      </h2>
-
-      <!-- TOGGLE -->
-      <div class="flex bg-slate-700 rounded-xl mb-6 overflow-hidden">
-        <button
-          onclick="showLogin()"
-          id="loginBtn"
-          class="w-1/2 py-2 font-semibold bg-cyan-500"
+        <!-- TITLE -->
+        <h2
+          class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"
         >
-          Login
-        </button>
-        <button
-          onclick="showRegister()"
-          id="registerBtn"
-          class="w-1/2 py-2 font-semibold"
-        >
-          Register
-        </button>
-      </div>
+          Welcome Back
+        </h2>
 
-      <!-- LOGIN -->
-      <div id="loginBox">
-        <input
-          id="loginEmail"
-          placeholder="Email"
-          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-        />
+        <!-- TOGGLE -->
+        <div class="flex bg-slate-700 rounded-xl mb-6 overflow-hidden">
+          <button onclick="showLogin()" id="loginBtn" class="w-1/2 py-2 font-semibold bg-cyan-500">
+            Login
+          </button>
+          <button onclick="showRegister()" id="registerBtn" class="w-1/2 py-2 font-semibold">
+            Register
+          </button>
+        </div>
 
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Password"
-          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-        />
+        <!-- LOGIN -->
+        <div id="loginBox">
+          <input id="loginEmail" placeholder="Email"
+            class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
 
-        <button
-          onclick="login()"
-          class="w-full bg-cyan-500 hover:bg-cyan-600 py-2 rounded-lg font-semibold transition"
-        >
-          Login
-        </button>
-      </div>
+          <input id="loginPassword" type="password" placeholder="Password"
+            class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
 
-      <!-- REGISTER -->
-      <div id="registerBox" class="hidden">
-        <input
-          id="name"
-          placeholder="Name"
-          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-        />
+          <button onclick="login()"
+            class="w-full bg-cyan-500 hover:bg-cyan-600 py-2 rounded-lg font-semibold transition">
+            Login
+          </button>
+        </div>
 
-        <input
-          id="email"
-          placeholder="Email"
-          class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-        />
+        <!-- REGISTER -->
+        <div id="registerBox" class="hidden">
+          <input id="name" placeholder="Name"
+            class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
 
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-        />
-        <select
-          id="role"
-          class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-        >
-          <option value="customer" selected>customer</option>
-          <option value="student">student</option>
-          <option value="seller">seller</option>
-        </select>
+          <input id="email" placeholder="Email"
+            class="w-full mb-3 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
 
-        <button
-          id="registerBtnn"
-          onclick="register()"
-          class="w-full bg-emerald-500 hover:bg-emerald-600 py-2 rounded-lg font-semibold transition"
-        >
-          Register
-        </button>
+          <input id="password" type="password" placeholder="Password"
+            class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+
+          <select id="role"
+            class="w-full mb-4 p-3 rounded-lg bg-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+            <option value="customer" selected>customer</option>
+            <option value="student">student</option>
+            <option value="seller">seller</option>
+          </select>
+
+          <button id="registerBtnn" onclick="register()"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 py-2 rounded-lg font-semibold transition">
+            Register
+          </button>
+        </div>
+
       </div>
     </div>
 
+  </div>
     <script>
       function showLogin() {
         document.getElementById("loginBox").classList.remove("hidden");

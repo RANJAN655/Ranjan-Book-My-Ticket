@@ -20,6 +20,13 @@
     <div
       class="max-w-7xl w-full bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-slate-700/50"
     >
+      <button
+      id="logout"
+        onclick="logoutt()"
+        class="absolute top-5 right-5 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold shadow-lg transition duration-200"
+      >
+        Logout
+      </button>
       <div class="text-center mb-10">
         <h1
           class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight"
@@ -68,6 +75,23 @@
     </div>
 
     <script>
+      async function logoutt(){
+        try {
+          const logoutOnclick=document.getElementById("logout")
+        const res = await fetch("/api/auth/logout",{
+          method : "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        })
+        if(res.ok){
+          window.location.href ="http://localhost:5050";
+        }else{
+          console.error("Logout failed");
+        }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
       async function run() {
         const tbl = document.getElementById("tbl");
 

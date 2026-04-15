@@ -89,6 +89,7 @@
         </select>
 
         <button
+          id="registerBtnn"
           onclick="register()"
           class="w-full bg-emerald-500 hover:bg-emerald-600 py-2 rounded-lg font-semibold transition"
         >
@@ -101,15 +102,16 @@
       function showLogin() {
         document.getElementById("loginBox").classList.remove("hidden");
         document.getElementById("registerBox").classList.add("hidden");
-        
+
         document.getElementById("loginBtn").classList.add("bg-cyan-500");
-        document.getElementById("registerBtn").classList.remove("bg-emerald-500");
-        
+        document
+          .getElementById("registerBtn")
+          .classList.remove("bg-emerald-500");
       }
 
       function showRegister() {
         document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("registerBox").classList.remove("hidden");  
+        document.getElementById("registerBox").classList.remove("hidden");
         document.getElementById("registerBtn").classList.add("bg-emerald-500");
         document.getElementById("loginBtn").classList.remove("bg-cyan-500");
       }
@@ -135,37 +137,54 @@
 
       // REGISTER
       async function register() {
+        const btn = document.getElementById("registerBtnn");
+
         const nameVal = document.getElementById("name").value.trim();
         const emailVal = document.getElementById("email").value.trim();
         const passwordVal = document.getElementById("password").value.trim();
         const roleVal = document.getElementById("role").value;
 
-        // ✅ validation
+        // validation that all the FileList are filled ...
+
         if (!nameVal || !emailVal || !passwordVal) {
           alert("All fields are required");
           return;
         }
 
-        const res = await fetch("/api/auth/registerr", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: nameVal,
-            email: emailVal,
-            password: passwordVal,
-            role: roleVal,
-          }),
-        });
+        // loding   status
 
-        const data = await res.json();
+        btn.disabled = true;
+        btn.innerText = "Please wait...";
 
-        if (!res.ok) {
-          alert(data.error || "Register failed");
-          return;
+        try {
+          const res = await fetch("/api/auth/registerr", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: nameVal,
+              email: emailVal,
+              password: passwordVal,
+              role: roleVal,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            alert(data.error || "Register failed");
+            return;
+          }
+
+          alert("Registered successfully! Check your email.");
+          console.log(data);
+
+          showLogin();
+        } catch (error) {
+          alert("Something went wrong");
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "Register";
         }
-
-        alert("Registered successfully! Check your email.");
-        showLogin();
       }
     </script>
   </body>

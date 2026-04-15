@@ -1,6 +1,6 @@
 import ApiResponse from "../../common/utils/api.response.js";
 import Apierror from "../../common/utils/api.error.js";
-import * as service from './auth.service.js'
+import * as service from "./auth.service.js";
 
 // const register = async (req, res) => {
 //   try {
@@ -18,42 +18,37 @@ import * as service from './auth.service.js'
 //   }
 // };
 
-
-
 const register = async (req, res) => {
   try {
-    const { user} = await service.register(req.body);
-
-    res.json({
-      success: true,
-      message: "registeration success",
-      data: user,
-    });
-
+    const { user } = await service.register(req.body);
+    ApiResponse.created(
+      res,
+      "Registration successful. Please verify your email.",
+      user,
+    );
   } catch (error) {
     res.status(400).json({
       success: false,
-      error: error.message
+      error: error.message,
     });
   }
 };
 
-const logout = async (req,res) => {
-    await service.logOut(req.user.id);
-    res.ClearCookie("refreshtoken");
-    ApiResponse.ok(res,"Logout Success")
-}
-const getMe = async (req,res) =>{
-    const user = await service.getMe(req.user.id);
-    ApiResponse.ok(res,"user Profile",user);
-}
+const logout = async (req, res) => {
+  await service.logOut(req.user.id);
+  res.ClearCookie("refreshtoken");
+  ApiResponse.ok(res, "Logout Success");
+};
+const getMe = async (req, res) => {
+  const user = await service.getMe(req.user.id);
+  ApiResponse.ok(res, "user Profile", user);
+};
 
-const verifyEmail = async (req,res) =>{
-    await service.verifyEmail(req.params.token);
-    // Apierror.badRequest("Invalid or expired verification token");
-    ApiResponse.ok(res,"Email verified successfully")
-}
-
+const verifyEmail = async (req, res) => {
+  await service.verifyEmail(req.params.token);
+  // Apierror.badRequest("Invalid or expired verification token");
+  ApiResponse.ok(res, "Email verified successfully");
+};
 
 const login = async (req, res) => {
   try {
@@ -77,8 +72,8 @@ const login = async (req, res) => {
     ApiResponse.ok(res, "Login successful", {
       user,
       accessToken,
+      refreshToken,
     });
-
   } catch (err) {
     console.error("LOGIN ERROR:", err);
 
@@ -88,4 +83,4 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login, logout, getMe, verifyEmail }
+export { register, login, logout, getMe, verifyEmail };

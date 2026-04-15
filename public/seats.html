@@ -86,11 +86,11 @@
 
           const base = "w-20 h-20 text-center text-lg font-bold rounded-lg";
 
-          // 🔴 Already booked
+          // if Already booked
           if (seats[i].isBooked) {
             td.className = base + " bg-red-500 cursor-not-allowed";
           }
-          // 🟢 Available
+          // if Available
           else {
             td.className = base + " bg-green-500 cursor-pointer";
 
@@ -105,7 +105,7 @@
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({ name }),
-                  credentials: "include", // 🔥 send cookies
+                  credentials: "include", // sendto cookies
                 });
 
                 const data = await res.json();
@@ -115,12 +115,10 @@
                 } else {
                   alert("Booked!");
 
-                  // ✅ UPDATE UI instantly (NO reload)
                   td.className = base + " bg-red-500 cursor-not-allowed";
 
-                  td.innerText = seats[i].id;
+                  // td.innerText = seats[i].id;
 
-                  // ❌ disable click after booking
                   td.onclick = null;
                 }
               } catch (err) {

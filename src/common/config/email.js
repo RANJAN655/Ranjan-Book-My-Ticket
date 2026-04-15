@@ -16,13 +16,11 @@ const sendEmail = async (to, subject, html) => {
     const info = await transporter.sendMail({
       from: `"${process.env.SMTP_FROM_NAME}" <${process.env.SMTP_FROM_EMAIL}>`,
       to,
-      subject:"welcome to our app",
-      html : `<h1>Welcome to our app</h1><p>Thank you for registering. Please verify your email.</p>`,
+      subject: "welcome to our app",
+      html: `<h1>Welcome to our app</h1><p>Thank you for registering. Please verify your email.</p>`,
     });
 
-    console.log("EMAIL SENT ✅", info.response);
-
-    
+    console.log("EMAIL SENT ", info.response);
   } catch (err) {
     console.error("EMAIL FAILED ❌", err);
   }
@@ -31,21 +29,19 @@ const sendEmail = async (to, subject, html) => {
 const sendVerificationEmail = async (email, token) => {
   const url = `http://localhost:5050/api/auth/verify-email/${token}`;
 
-
   console.log("\n===============================");
   console.log("📧 EMAIL VERIFICATION LINK:");
   console.log(url);
   console.log("===============================\n");
-  console.log(" == email send successfuly but in the mail indox i can not see any thing so");
-
-  
-  
+  console.log(
+    " == email send successfuly but in the mail indox i can not see any thing so",
+  );
 
   await sendEmail(
     email,
     "Verify your email",
     `<h2>Welcome!</h2>
-     <p>Click <a href="${url}">here</a> to verify your email.</p>`
+     <p>Click <a href="${url}">here</a> to verify your email.</p>`,
   );
 };
 

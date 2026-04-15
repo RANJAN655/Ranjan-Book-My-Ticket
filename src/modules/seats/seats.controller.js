@@ -14,8 +14,9 @@ export const bookSeat = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
+    const userId = req.user.id;
 
-    const seat = await bookSeatService(id, name);
+    const seat = await bookSeatService(id,userId,name);
 
     res.json(seat);
   } catch (error) {

@@ -69,6 +69,11 @@ volumes:
 ## 📁 Project Structure
 
 ```
+public/
+| -----|--index.html
+|      |--seats.html
+|           
+|
 src/
  ├── common/
  │   ├── config/
@@ -271,7 +276,7 @@ Returns:
 * Seat selection UI
 * Admin dashboard
 * Rate limiting
-* log out
+
 
 ---
 

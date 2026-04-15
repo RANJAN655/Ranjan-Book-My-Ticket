@@ -4,10 +4,10 @@ export const getAllSeatsService = async () => {
   return await Seat.find().lean();
 };
 
-export const bookSeatService = async (id, name) => {
+export const bookSeatService = async (id, userId,name) => {
   const seat = await Seat.findOneAndUpdate(
     { _id: id, isBooked: false },
-    { $set: { isBooked: true, name } },
+    { $set: { isBooked: true,bookedBy:userId,name} },
     { returnDocument: "after" },
   );
 

@@ -7,7 +7,7 @@ import * as controller from "./auth.controller.js";
 
 const router = Router();
 
-router.post("/registerr", controller.register);
+router.post("/register", controller.register);
 router.post("/login", validate(login), controller.login);
 
 router.post("/logout", authonation, controller.logout);

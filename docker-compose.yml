@@ -15,7 +15,7 @@ services:
       MONGO_INITDB_DATABASE: myapp
 
     volumes:
-      - ./mongo_data:/data/db
+      - mongo_data:/data/db
 
 volumes:
   mongo_data:

@@ -65,12 +65,11 @@ const login = async ({ email, password }) => {
     role: user.role,
   });
 
-  // ✅ RAW refresh token
+  // RAW refresh token
   const refreshToken = generateRefreshToken({
     id: user._id,
   });
-
-  // ✅ store HASH in DB
+  //store HASH in DB
   const hashed = hasevalue(refreshToken);
   user.refreshtoken = hashed;
 
@@ -82,7 +81,7 @@ const login = async ({ email, password }) => {
   return {
     user: userObj,
     accessToken,
-    refreshToken, // ✅ FIXED
+    refreshToken, 
   };
 };
 
@@ -101,7 +100,7 @@ const referce = async ({ token }) => {
 
   const accessToken = generateAccessToken({ id: user._id, role: user.role });
 
-  // todo subtract the remaining time if access token expire in 15m
+
   return { accessToken };
 };
 
